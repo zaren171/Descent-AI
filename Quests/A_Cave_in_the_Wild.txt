@@ -1,0 +1,104 @@
+#NAME:
+A Cave in the Wild
+#SCENBACK:
+As time was a luxury you decided to travel across land rather than use the King's Highway.  On the third day out you foud a trail of large footprints heading up in to the hills.  Curiosity got the better of you and followed the ttracks over the hills and into a small valley below.  The trail ends at the entrance to a dark cave.  You tentatively step inside.
+#MISSGOAL:
+Players are required to defeat the master Ogre in Area 2.
+
+Players start with 3 Conquest Tokens.
+#CHESTS:
+<Copper:
+1 Treasure, 3 Conquest
+1 Treasure, 100 Coins
+2 Treausres, 100 Coins, 1 Curse
+<Silver:
+1 Treasure, 3 Conquest
+1 Treasure, 100 Coins
+2 Treasures, 100 Coins, 1 Curse
+<Gold:
+#ROOMS:
+2
+#MAP:
+S <-> 1
+1 <-> 2
+#S:
+Map:
++---+---+---+
+| G |   |   |D
++---+---+---+> Area 1
+|   |   |   |D
++---+---+---+
+Key
+D : Door
+G : Glyph (Activated)
+#1:
+As you open the door you hear growling and the shuffle of feet.  Your torches illuminate a natural cavern to reveal what appears to be crude living quarters.  Piles of junk lie strewn about the room.  The smell of wet dog and burnt hair assails your nostrils.
+
+<Encounter:
+You rummage through a particularly large and smelly pile of rubbish.  Amist the rotting food and decay you discover a Healing Potion.
+Map:
++---+---+---+---+---+
+|RK |   |   |   | W |
++---+---+---+---+---+
+|CC |HH |HH |   |   |
++---+---+---+---+---+
+            |   |   |
+            +---+---+
+            |   |   |
+        +---+---+---+---+
+        |   |   |   | ? |
+        +---+---+---+---+
+       D|   |   |BM |   |RD
+S Area <+---+---+---+---+> Area 2
+       D|   |   |   |   |RD
+        +---+---+---+---+
+        |   |BM |   |   |
+        +---+---+---+---+
+            |   |   |
+            +---+---+
+            |   |   |
+            +---+---+
+            |VP | M |
+            +---+---+
+Key
+D : Door
+RD: Red Rune Door
+RK: Red Key
+CC: Copper Chest
+HH: Hell Hound
+W : Water
+? : Encounter
+BM: Beastman
+VP: Vitality Potion
+M : Money
+#2:
+You unlock the door and pull it open to reveal an even more pungent stench.  Bones lie scattered here and there in this large natrual cavern.  A large Ogre loks up from its current meal (A half devoured sheep) and glares at you with intent.
+
+Map:
+                    +---+---+
+                    |   |VP |
+            +---+---+---+---+---+---+
+            | G |   |   | R |   |   |
+            +---+---+---+---+---+---+
+            |   |   |   |   |   |   |
+        +---+---+---+---+---+---+---+---+
+      RD|   |   | H |   | O | O |   |   |
+Area 1 <+---+---+---+---+---+---+---+---+
+      RD|   |   | H |   | O | O |   |   |
+        +---+---+---+---+---+---+---+---+
+            |   |   |   |   |   |   |
+            +---+---+---+---+---+---+
+            |SC |   |   | R | R |   |
+            +---+---+---+---+---+---+
+                    |   |HP |
+                    +---+---+
+Key
+RD: Red Rune Door
+VP: Vitality Potion
+G : Glyph (inactive)
+R : Rock
+H : Hole
+O : Ogre
+SC: Silver Chest
+HP: Health Potion
+#ENDFILE:

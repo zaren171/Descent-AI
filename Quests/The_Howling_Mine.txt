@@ -1,0 +1,163 @@
+#NAME:
+The Howling Mine
+#SCENBACK:
+The town of Forge has long been the hub for all mining operations in the realm of Terrinoth. People have dug into the surrounding mountains and exploited them, finding useful metals, like iron and copper, and also precious ones like gold. Recently, however, the gods have been much less generous for the miners and their pick have struck nothing more than hard rock. Seeing the crisis coming, Hernand, the mayor of Forge, has met with the Gorg family, wich is owning much the Broken Crags to the east of the city, and asked them permission to dig into their land. The Gorg, three wizard brothers, agreed on the term that they would keep two third of the gold found on each day of work. The other third along with all the iron would belong to the people of Forge as a reward for their labor. Happy with the deal, the mayor told the miners to begin to dig what would later be called the Howling Mine. It was baptized this way because of the strange noise the wind makes when it blows into the entrance of the mine and also because of all the weird creatures found in its surroundings.
+
+To their great joy, the miners soon found what they wanted: gold and a lot of iron. But after only one year of operation, the Gorg brothers mysteriously changed their mind about the deal, shut down the mine and took it as their new home. Miners where sent home, begging for mercy but none was granted. For six months, nobody heard about the Gorg. Then, one day, the eldest brother, Darius, came to Forge and asked for Hernand, the mayor. "We want what is ours", said Darius. "This was a rotten deal. If you don't give us back the gold you took from our land, we will take it back by force and destroy your miserable town. The choice is yours. I give you one week to decide". Seeing that there was no way to convince the Gorg to accept another deal, Hernand decided to send a party of four adventurers to the mine with the hope to capture the brothers. All the adventurers were killed except for one that was sent back with a message from Darius, written on a blood stained parchment, saying: "This was a declaration of war."
+#MISSGOAL:
+Seeing no other alternatives and lacking troops to assault the Mine, Hernand the mayor of Forge, called another group of Heroes to help the town. This time, you have been chosen and the mayor seems to have big faith in you. Before the mission, Hernand introduced you to the sole survivor of the previous raid who had precious informations to divulge: "Each one of those mad wizards has domesticated a vile creature that guards the place. Those monstrous things killed my partners. But this is not all: Darius, the elder, has built what he named his Machine, an artificial being made of pure metal whose only purpose is to spread destruction and despair." After hearing this, you are more determined than ever. You are to enter the Howling Mine, find and kill the three Gorg brothers, named Raul, Teo and Darius, and finally, destroy the Machine before it reaches Forge.
+
+You start the mission with 5 Conquest Tokens. If you run out of them, Forge will be destroyed and many will perish.
+#CHESTS:
+<Copper:
+2 Conquest Tokens, 0 Curse, 1 Copper Treasure
+1 Conquest Tokens, 1 Curse, 1 Copper Treasure
+0 Conquest Tokens, 2 Curse, 2 Copper Treasure
+<Silver:
+2 Conquest Tokens, 0 Curse, 1 Silver Treasure
+1 Conquest Tokens, 1 Curse, 1 Silver Treasure
+0 Conquest Tokens, 2 Curse, 2 Silver Treasure
+<Gold:
+2 Conquest Tokens, 1 Curse, 1 Gold Treasure
+0 Conquest Tokens, 3 Curse, 2 Gold Treasure
+#ROOMS:
+5
+#MAP:
+S <-> 1
+1 <-> 2
+2 <-> 3
+3 <-> 4
+#S:
+Entering the mine, you are surprised by the loud whistling of the wind rushing between the rocky walls. You then realize that the name they chose for this site is more than appropriate. It is dark in front of you so you decide to light a torch. As soon as the flame begins to dance before your eyes, a sound of flapping wings can be heard coming from the corridor ahead. Something has definitely sensed your arrival.
+
+Map:
+                        +---+---+
+                        |RW |   |
+                        +---+---+
+                        |   |   |
++---+---+---+---+---+---+---+---+---+---+
+|   |   |   |   |   |   |   |   |   |   |
++---+---+---+---+---+---+---+---+---+---+
+| G |   |   |   |   |   |   |   |   |RW |
++---+---+---+---+---+---+---+---+---+---+
+                        |   |RW |
+                        +---+---+
+                          D\/ D
+                          Area 1
+Key
+D : Door
+G : Glyph (Activated)
+RW: Razorwing
+#1:
+As soon as you open the door, you smell the horrid the stench of decomposing flesh. Growling can also be heard faintly. You wander a bit more, cautiously, and the light of your torch reveals the body of one of the fallen adventurers that tried to stop the Gorg brothers before you. Creatures are around it, obviously trying to protect their meal. But now, they have seen you and seem upset about this new intrusion.
+
+Map:
+                          Area S
+                          D ^ D
+                        +---+---+
+                        |   |   |
+                        +---+---+
+                        |   |   |
++---+---+---+---+---+---+---+---+
+|HP | M |BM |   |   |   |   |   |
++---+---+---+---+---+---+---+---+
+|   |   |BM |   |   |   |   |   |
++---+---+---+---+---+---+---+---+
+|   |BM |
++---+---+
+|   |   |
++---+---+
+  D\/ D
+  Area 2
+Key
+D : Door
+BM: Beastman
+HP: Health Potion
+M : Money
+#2:
+This door does not open easily. You understand when you see, on the other side, a lot of spider webs attached everywhere, from wall to wall, ceiling to floor. A hissing sound and a voice can be heard when you advance in the corridor: "Hernand will never learn. This mission of yours will fail, as the other did pathetically. You will not get past me and my faithful companion. Time to die now."
+
+The white Wizard shown in this area is Raul Gorg, one of the three brothers.  Eliminating him is part of the mission for the adventurers.
+Map:
+          Area 1            +---+---+
+          D ^ D             | G |RRK|
+        +---+---+           +---+---+
+        |   |   |           | H | H |
++---+---+---+---+---+---+---+---+---+
+|CC |   |   |   |   |   |   |RBS|RBS|
++---+---+---+---+---+---+---+---+---+
+|VP |   |   |   |   |   |   |RBS|RBS|
++---+---+---+---+---+---+---+---+---+
+        |   |   |           |   | W |
+        +---+---+           +---+---+
+        | M |HP |             D\/ D
+        +---+---+             Area 3
+Key
+D  : Door
+HP : Health Potion
+VP : Vitality Potion
+CC : Copper Chest
+M  : Money
+G  : Glyph (inactive)
+RRK: Red Rune Key
+H  : Hole
+RBS: Red Bane Spider
+W  : Wizard
+#3:
+Your torch and an ambient light illuminates a smaller portion of the mine with an intersection ahead. The ambient light comes from the glowing staff of another wizard. Above him, on a rocky ledge, a big creature opens its wings and prepares to fly towards you. "This will not go unpunished", says the wizard. "You will suffer, along with all the thiefs in Forge. We have almost finished the preparations. You will soon experience hell."
+
+This other white Wizard is Teo Gorg. Eliminating him is part of the mission for the adventurers.
+Map:
+                    Area 2 
+                    D ^ D  
+                  +---+---+
+                  |   |   |
+                  +---+---+
+                  |   |   |
+                  +---+---+
+                  |   |   |
+                  +---+---+
+                  |   |   |
+          +---+---+---+---+---  +  ---+
+         D|   |   |   |   | W  RRD  SC|
+Area 4   <+---+---+---+---+---  +  ---+
+         D|RRW|   |   |   |    RRD BRK|
+          +---+---+---+---+---  +  ---+
+Key
+D  : Door
+RRW: Red Razorwing
+W  : Wizard
+RRD: Red Rune Door
+SC : Silver Chest
+BRK: Blue Rune Key
+#4:
+A bright orange light emanating from numerous torches hanged on walls greats you when you enter this room. Ahead, is a huge snake-like creature that raises its human head slowly and looks at you with anger in its eyes. Besides it, stands a man who, as you guess, is no other than Darius Gorg. As soon as he sees you, Darius pulls on a lever on the wall behind him and a loud humming noise immediatly shakes the walls of the mine around you. The noise seems to be coming from behind a massive door on the opposite wall. "My work is done", says Darius. "You have a few minutes to live and the people in Forge will soon have the same fate. You will witness what my ingenuity and the fruit of this mine has brought to this world."
+
+The machine lies dormant behind a rune locked door.
+<Countdown:
+3 The massive door swings open. A tall metallic humanoid form begins to walk towards you. Its legs and arms move with a creakind sound and each of its steps make the floor shake. Its eyes are glowing red and its huge hammer swings back and forth before it. This thing must definitely not reach Forge. (The Machine has the same statistics as a red Giant except that it starts with a movement of 1 and gain +1 speed on each following turn (for a limit of 10). It will always move in the straightest line possible, turn at intersections and use all its movement points each turn to try to reach the exit of the mine. Its attack can be made, as usual, before, after or while moving. When it moves, any creature or Hero that stands in a square where the Machine has just moved in is considered crushed and suffers automatically 4 wounds, ignoring armor, and is then moved in an adjacent square chosen by the Overlord player. So, it is possible that a figure will be crushed more than one time in a turn. Also, the Machine ignores and simply pass over any pit or rubble that might have been placed in the mine due to traps sprung by Overlord cards. If the Machine ever reaches the first 4 squares of the mine's entrance the players lose.)
+Map:
+                       +---+---+
+                       |GC | M |
+               +---+---+---+---+---+---+
+               |RW |   |   |   |   |   |
++---+---+---   +---+---+---+---+---+---+
+|RG |RG |    BRD   |RN |RN |   |   |   |D
++---+---+---   +---+---+---+---+---+---+> Area 3
+|RG |RG |    BRD   |RN |RN |   |   |   |D
++---+---+---   +---+---+---+---+---+---+
+               |   |   |   |   |   |   |
+               +---+---+---+---+---+---+
+                       |HP |VP |
+                       +---+---+
+Key
+D  : Door
+M  : Money
+GC : Gold Chest
+VP : Vitality Potion
+HP : Health Potion
+RN : Red Naga
+RW : Red Wizard
+BRD: Blue Rune Door
+RG : Red Giant
+#ENDFILE:

@@ -1,0 +1,282 @@
+#NAME:
+The Exodus
+#SCENBACK:
+You have heard rumors in town that beasts from a cave to the north of town have been wandering around the countryside in broad daylight! Sure they have come out at night and pillaged once or twice but that was mostly livestock. This kind of thing has not happened in these parts, at least not in recent memory. You have been hired by the king to go and put an end to this disturbance and or to find out why they left the caves that riddle this area.  There have been known to be some powerful creatures in that cave system you had better take some friends.
+#MISSGOAL:
+1. Go to the cave and find out what is causing the monsters to leave the cave.
+2. Kill whatever beasts you can.
+3. Fix whatever it is that is causing this disturbance.
+#CHESTS:
+<Copper:
+1 Treasure, 2 Conquest
+<Silver:
+1 Treasure, 2 Conquest
+<Gold:
+1 Treasure, 4 Conquest
+#ROOMS:
+5
+#MAP:
+S <-> 1
+1 <-> 2
+1 <-> 5
+2 <-> 3
+3 <-> 4
+5 <-> 6
+#S:
+Map:
+  Area 1
+  D ^ D
++---+---+
+|BM |   |
++---+---+
+|   | S |
++---+---+
+|   |   |
++---+---+
+|   |   |
++---+---+
+|   |   |
++---+---+
+|   |   |
++---+---+
+|   | G |
++---+---+
+Key
+D : Door
+G : Glyph (Activated)
+BM: Beastman
+S : Skeleton Archer
+#1:
+You notice as you walk up to what was once a door that there are claw marks and burned parts all over this door.  Something wanted out... badly!
+
+Map:
+                                                             Area 5
+                                                              D ^ D
+                                                        +---+---+---+---+
+                                                        |   |HH |   | G |
+                                                        +---+---+---+---+
+                                                        |   |HH |RS | H |
+                                        +---+---+---+---+---+---+---+---+---+
+                                        |RW |RW |   |   |   | W |   |   |CC |
+                                        +---+---+---+---+---+---+---+---+---+
+                                        |   |   |   |   |   | W | W |   |RRW|
+                                        +---+---+---+---+---+---+---+---+---+
+                                        |   |   |       |   |BS |BS |   |
+                                        +---+---+       +---+---+---+---+
+                                        |   |   |       |   |BS |BS |   |
+                                    +---+---+---+---+   +---+---+---+---+
+                                    |   |   |   |   |       |   |   |
+        +---+---+---+---+---+---+---+---+---+---+---+---+   +---+---+
+       D|   |BM |   |   |   |   |   |   | S | R |RS |HP |
+Area 2 <+---+---+---+---+---+---+---+---+---+---+---+---+
+       D|   |BM |   |   |   |   |   |   | R | S |   |   |
+        +---+---+---+---+---+---+---+---+---+---+---+---+
+                        |   |RW |   |   |   |   |   |
+                        +---+---+   +---+---+---+---+
+                        |   |   |       |   |   |
+                        +---+---+       +---+---+
+                          D \/D
+                          Start
+Key
+D  : Door
+CC : Copper Chest
+HH : Hell Hound
+W  : Water
+BM : Beastman
+HP : Health Potion
+S  : Skeleton Archer
+RS : Red Skeleton Archer
+R  : Rock
+RW : Razorwing
+RRW: Red Razorwing
+BS : Bane Spider
+G  : Glyph (inactive)
+H  : Hole
+#2:
+This door shows some of the same signs as the last however it seems to be in working condition still... at least for now.
+
+As you enter this room you see the charred body of a beast man laying on the ground and the stench of burnt hair lingering in the air.
+
+Map:
+         Area 3   
+          D ^ D
+    +---+---+---+---+
+    | C |BM |   |   |
+    +---+---+---+---+
+    |   |   |   |BM |
++---+---+---+---+---+---+
+|CC |   | H | H |   |   |D
++---+---+---+---+---+---+> Area 1
+|   |   |   |RBM|   |   |D
++---+---+---+---+---+---+
+    |   |   |   |   |
+    +---+---+---+---+
+    |HP | G |   |   |
+    +---+---+---+---+
+        |   |   |
+        +---+---+
+Key
+D  : Door
+G  : Glyph (inactive)
+H  : Hole
+CC : Copper Chest
+HP : Health Potion
+C  : Gold Coins
+BM : Beast Man
+RBM: Red Beast Man
+#3:
+As you approach this hallway you notice some very thick web like material and you hear some unusual clicking noises coming from somewhere down this hall.
+
+Note: The hall is very dark and adventurers can only see 4 spaces.
+
+Map:
++---+---+---+---+
+| O | O | S |   |D
++---+---+---+---+> Area 4
+| O | O |   |   |D
++---+---+---+---+
+|   |   |
++---+---+
+|   |   |
++---+---+               
+|   |   |               
++---+---+---+---+---+---+---+---+---+---+---+
+|RBM|   |   |   |BS |BS |RBS|RBS|   |RK |CC |
++---+---+---+---+---+---+---+---+---+---+---+
+|   |BM |   |   |BS |BS |RBS|RBS|   |VP |   |
++---+---+---+---+---+---+---+---+---+---+---+
+|   |   |
++---+---+
+  D \/D
+  Area 2
+Key
+D  : Door
+S  : Skeleton Archer
+CC : Copper Chest
+VP : Vitality Potion
+RK : Red Rune Key
+BM : Beast Man
+RBM: Red Beast Man
+BS : Bane Spider
+RBS: Red Bane Spider
+O  : Ogre
+#4:
+The ogre in this room seems to be preoccupied for the moment with the door on the north wall. As you take a second to look he is barring the door not trying to open it and it looks like he is almost done!
+
+Note: The ogre at the door will not attack for one turn.
+
+Note: Every monster (except those noted) are trying to excape the cave. Move monsters toward the cave enterance at least 2 spaces when they are put in play. Once a monster is out of sight remove it from the board, it has escaped the cave. This includes monsters spawned by cards. The monsters will still attack the adventurers as they pass by fleeing the cave.
+
+Map:
+                 Area 6
+                 BD ^BD
+                +---+---+
+                | R |   |
+        +---+---+---+---+---+---+
+        |   |   | O | O |   | C |
+        +---+---+---+---+---+---+
+        |   |   | O | O |   |   |
+        +---+---+---+---+---+---+---+
+       D|   |   |   |   |RO |RO |   |
+Area 3 <+---+---+---+---+---+---+---+
+       D|   |   | S |   |RO |RO | G |
+        +---+---+---+---+---+---+---+                
+        |   |   |   | R | R | R |               
+        +---+---+---+---+---+---+
+        |   |   |   |   | S |SC |
+        +---+---+---+---+---+---+
+                |   |   |
+                +---+---+
+               No Passage
+Key
+D  : Door
+BD : Blocked Door, cannot open
+S  : Skeleton Archer
+R  : Rock
+C  : Gold Coins
+RO : Red ogre
+O  : Ogre
+SC : Silver Chest
+G  : Glyph (inactive)
+#5:
+As you round this corner you hear some screaming although you don't think its human it still sounds like something is not very happy.
+
+Map:
+        +---+---+---+---+
+      RD|   |   | N | N |
+Area 6 <+---+---+---+---+
+      RD|   |   | N | N |
+        +---+---+---+---+
+                |   |   |
+                +---+---+
+                |   |   |
+                +---+---+
+                |   |HH |
+                +---+---+
+                |   |HH |
+                +---+---+
+                |RW |   |
+                +---+---+
+                |   |RBM|
+                +---+---+
+                |   |   |
+                +---+---+
+                |   |   |
+                +---+---+
+                  D \/D
+                 Area 1
+Key
+D  : Door
+RD : Red Rune Door
+N  : Naga
+HH : Hell Hound
+RW : Razor Wing
+RBM: Red Beast Man
+#6:
+As you enter this room  you hear the noises and the screams louder now and you think you have found the reason the monsters are running from the cave... a dragon has taken up residence and seems to be cleaning out his new lair! He is locked in a fight with a Naga and doesn't seem to notice your enterance.
+
+Note: On second turn in after party enters the room the naga is killed by the dragon and he now turns his attention on them.
+
+Map:
+        +---+---+           +---+---+
+        |GC | C |           |   |   |
+    +---+---+---+---+---+---+---+---+---+---+
+    |   |   | H | H | H |   |   |   |   |   |
+    +---+---+---+---+---+---+---+---+---+---+
+    |   |   | H | H |DR |DR |   |   |   |   |
++---+---+---+---+---+---+---+---+---+---+---+---+
+|   |   | R | H |   |DR |DR |RO |RO |   |   |   |
++---+---+---+---+---+---+---+---+---+---+---+---+
+|   |   |   |   |   |DR |DR |RO |RO |   |   |HP |
++---+---+---+---+---+---+---+---+---+---+---+---+
+    |   |   |   |   |   |   |   |   |   |   |
+    +---+---+---+---+---+---+---+---+---+---+
+    |   |   |   |   |   |   | O | O |   |   |
+    +---+---+---+---+---+---+---+---+---+---+
+    |   |   |   |   |   |   | O | O |   |   |
++---+---+---+---+---+---+---+---+---+---+---+
+| G |   |   |   |   |   |   |   |   |   |   |RD
++---+---+---+---+---+---+---+---+---+---+---+> Area 5
+|VP |   |   |   |   |   |   |   | R |   |   |RD
++---+---+---+---+---+---+---+---+---+---+---+
+    |   |   |   |   |   |   |   | R | R |   |
+    +---+---+---+---+---+---+---+---+---+---+
+        | R | R |           |HP |SC |
+        +---+---+           +---+---+
+         BD\/BD
+        
+Key
+RD : Red Rune Door
+BD : Blocked Door, cant open
+DR : Dragon
+RO : Red Ogre
+O  : Ogre
+R  : Rock
+H  : Hole
+VP : Vitality Potion
+HP : Health Potion
+SC : Silver Chest
+GC : Gold Cheset
+C  : Gold Coins
+G  : Glyph (inactive)
+#ENDFILE:
