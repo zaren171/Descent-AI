@@ -8,7 +8,7 @@
 #define PRINT_WIDTH 80
 
 //chances represent the number of threat the OL must have above
-//the card cost to guarnatee playing the card.  Lowering the 
+//the card cost to guarantee playing the card.  Lowering the 
 //chance increases the likelihood the card type is played.
 #define TRAP_DOOR_CHANCE 25
 #define TRAP_CHEST_CHANCE 25
@@ -64,21 +64,89 @@ typedef struct{
 monster monsters[60];
 int monsterSize = 0;
 
-printCards(card* ptr, int size){
+void printCards(card* ptr, int size){
     int i;
     for(i = 0; i<size; i++) printf("%2d: Cost: %d \tSell: %d \t%s\n", i, ptr[i].play_cost, ptr[i].sell_cost, ptr[i].name);
     printf("\n");
 }
 
-init_ol(){
+void discardCard(int count, int low, int high){
+    int temp = rand()%count;
+    int i;
+    for(i = 0; i<handSize; i++){
+        if(low <= hand[i].play_cost &&  hand[i].play_cost <= high){
+            if(temp == 0){
+                discard[discardSize] = hand[i];
+                overlord.threat += hand[i].sell_cost;
+                discardSize++;
+                int j;
+                for(j = i; j<handSize; j++)
+                    hand[j] = hand[j+1];
+                handSize--;
+                return;
+            }
+            temp--;
+        }	
+    }
+}
+
+void draw_card(){
+    //get card
+    int cnum = rand()%deckSize;
+    hand[handSize] = deck[cnum];
+    handSize++;
+    
+    int i;
+    //printCards(hand, handSize);
+    
+    for(i = cnum; i<deckSize; i++){
+        deck[i] = deck[i+1];
+    }
+    deckSize--;
+    
+    //optional discard
+    
+    //if more than 8 discard for threat
+    while(handSize > 8){
+        int low = 0, med = 0, high = 0;
+        for(i = 0; i<handSize; i++){
+            if(hand[i].play_cost<5)
+                low++;
+            else if(hand[i].play_cost<15)
+                med++;
+            else
+                high++;
+        }
+        //if more than one high cost card in hand pick high cost cards to discard
+        if(high > 1){
+            discardCard(high, 15, 30);
+        }
+        else if(med > 3){
+            discardCard(med, 5, 14);
+        }
+        else if(low > 4){
+            discardCard(low, 1, 4);
+        }
+        //printCards(hand, handSize);
+    }
+    
+}
+
+void keyPause(){
+    printf("\n<><>Press ENTER to Continue<><>");
+    getchar();
+    printf("\n\n");
+}
+
+void init_ol(){
     overlord.threat = 0;
-    //overlord.conquest_tokens = 4; //varies by quest, have a read in file?
+    //overlord.conquest_tokens = 4; //varies by quest, players can track conquest tokens
     draw_card();
     draw_card();
     draw_card();
 }
 
-init_deck(){
+void init_deck(){
 
     int i;
     for(i = 0; i<=2; i++){
@@ -326,7 +394,7 @@ init_deck(){
     fulldeck[fullSize] = deck[35]; fullSize++;
 }
 
-resuffleDiscard(){
+void resuffleDiscard(){
     int i;
     for(i = 0; i<discardSize; i++){
         deck[deckSize] = discard[i];
@@ -337,73 +405,52 @@ resuffleDiscard(){
     keyPause();
 }
 
-discardCard(int count, int low, int high){
-    int temp = rand()%count;
-    int i;
-    for(i = 0; i<handSize; i++){
-        if(low <= hand[i].play_cost &&  hand[i].play_cost <= high){
-            if(temp == 0){
-                discard[discardSize] = hand[i];
-                overlord.threat += hand[i].sell_cost;
-                discardSize++;
-                int j;
-                for(j = i; j<handSize; j++)
-                    hand[j] = hand[j+1];
-                handSize--;
-                return 0;
-            }
-            temp--;
-        }	
-    }
-}
-
-collect_threat(int players){
+void collect_threat(int players){
     overlord.threat += players;
 }
 
-draw_card(){
-    //get card
-    int cnum = rand()%deckSize;
-    hand[handSize] = deck[cnum];
-    handSize++;
+void printSection(char * tag){
+    char * line = NULL;
+    size_t len = 0;
+    ssize_t read;
     
-    int i;
-    //printCards(hand, handSize);
-    
-    for(i = cnum; i<deckSize; i++){
-        deck[i] = deck[i+1];
+    quest_file = fopen(game.questName, "r");
+    while ((read = getline(&line, &len, quest_file)) != -1) {
+        if(strcmp(line, tag) == 0){
+            getline(&line, &len, quest_file);
+            while(line[0] != '#'){
+                while(line[0] == '<'){
+                    getline(&line, &len, quest_file);
+                    getline(&line, &len, quest_file);
+                }
+                int startP = 0;
+                int endP = 0;
+                int tempP = 0;
+                for(endP = 0; endP < strlen(line); endP ++){
+                    if(line[endP] == ' '){
+                        if(endP - startP > PRINT_WIDTH){
+                            printf("%.*s\n", tempP-startP, line+startP);
+                            startP = tempP + 1;
+                        }
+                        tempP = endP;
+                    }
+                    if(endP == strlen(line) - 1){
+                        if(endP - startP > PRINT_WIDTH){
+                            printf("%.*s\n", tempP-startP, line+startP);
+                            startP = tempP + 1;
+                        }
+                        printf("%.*s", endP-startP+1, line+startP);
+                    }
+                }
+                getline(&line, &len, quest_file);
+            }
+        }
     }
-    deckSize--;
-    
-    //optional discard
-    
-    //if more than 8 discard for threat
-    while(handSize > 8){
-        int low = 0, med = 0, high = 0;
-        for(i = 0; i<handSize; i++){
-            if(hand[i].play_cost<5)
-                low++;
-            else if(hand[i].play_cost<15)
-                med++;
-            else
-                high++;
-        }
-        //pick high cost cards to discard
-        if(high > 1){
-            discardCard(high, 15, 30);
-        }
-        else if(med > 3){
-            discardCard(med, 5, 14);
-        }
-        else if(low > 4){
-            discardCard(low, 1, 4);
-        }
-        //printCards(hand, handSize);
-    }
+    fclose(quest_file);
     
 }
 
-init_game(){
+void init_game(){
 
     printf("Number of players: ");
     scanf("%d%*c", &game.players);
@@ -453,13 +500,18 @@ init_game(){
     printSection("#S:\n");
 }
 
-keyPause(){
-    printf("\n<><>Press ENTER to Continue<><>");
-    getchar();
-    printf("\n\n");
+int inplay(char* card_name){
+    int i;
+    int count = 0;
+    for(i = 0; i<tableSize; i++){
+        if(strcmp(table[i].name, card_name) == 0){
+            count++;
+        }
+    }
+    return count;
 }
 
-printCard(card c){
+void printCard(card c){
     printf(" ______________________________\n");
     printf("/                              \\\n");
     printf("|%*s%*s|\n",15+strlen(c.name)/2,c.name,15-strlen(c.name)/2,"");
@@ -509,7 +561,7 @@ printCard(card c){
     keyPause();
 }
 
-playCard(int i){
+void playCard(int i){
     printf("\n^^The Overlord plays the following card:^^\n");
     printCard(hand[i]);
     
@@ -535,7 +587,7 @@ playCard(int i){
     handSize--;
 }
 
-spawn_monsters(int open_squares){
+void spawn_monsters(int open_squares){
     int i;
     for(i = 0; i<handSize; i++){
         if(hand[i].type == spawn && overlord.threat >= hand[i].play_cost){
@@ -558,7 +610,7 @@ spawn_monsters(int open_squares){
     }
 }
 
-activate_monsters(){
+void activate_monsters(){
     //print general AI for all monsters for this turn
     int ai = rand()%100;
     if(ai < 20) printf("Melee: First, monsters adjacent to heroes attack \n"\
@@ -633,7 +685,7 @@ activate_monsters(){
     keyPause();
 }
 
-take_overlord_turn(){
+void take_overlord_turn(){
     //for for loops
     int i;
     
@@ -718,7 +770,7 @@ take_overlord_turn(){
     if(monster_count) activate_monsters();
 }
 
-door_trap(){
+void door_trap(){
     int i;
     for(i = 0; i<handSize; i++){
         if(hand[i].type == trap_door && overlord.threat >= hand[i].play_cost){
@@ -733,7 +785,7 @@ door_trap(){
     }
 }
 
-chest_trap(){
+void chest_trap(){
     int i;
     for(i = 0; i<handSize; i++){
         if(hand[i].type == trap_chest && overlord.threat >= hand[i].play_cost){
@@ -748,7 +800,7 @@ chest_trap(){
     }
 }
 
-space_trap(){
+void space_trap(){
     int i;
     for(i = 0; i<handSize; i++){
         if(hand[i].type == trap_space && overlord.threat >= hand[i].play_cost){
@@ -763,18 +815,7 @@ space_trap(){
     }
 }
 
-int inplay(char* card_name){
-    int i;
-    int count = 0;
-    for(i = 0; i<tableSize; i++){
-        if(strcmp(table[i].name, card_name) == 0){
-            count++;
-        }
-    }
-    return count;
-}
-
-printCardNames(){
+void printCardNames(){
     int i;
     for(i = 0; i<fullSize; i++){
         printf("%2d: %-24s", i, fulldeck[i].name);
@@ -782,48 +823,7 @@ printCardNames(){
     }
 }
 
-printSection(char * tag){
-    char * line = NULL;
-    size_t len = 0;
-    ssize_t read;
-    
-    quest_file = fopen(game.questName, "r");
-    while ((read = getline(&line, &len, quest_file)) != -1) {
-        if(strcmp(line, tag) == 0){
-            getline(&line, &len, quest_file);
-            while(line[0] != '#'){
-                while(line[0] == '<'){
-                    getline(&line, &len, quest_file);
-                    getline(&line, &len, quest_file);
-                }
-                int startP = 0;
-                int endP = 0;
-                int tempP = 0;
-                for(endP = 0; endP < strlen(line); endP ++){
-                    if(line[endP] == ' '){
-                        if(endP - startP > PRINT_WIDTH){
-                            printf("%.*s\n", tempP-startP, line+startP);
-                            startP = tempP + 1;
-                        }
-                        tempP = endP;
-                    }
-                    if(endP == strlen(line) - 1){
-                        if(endP - startP > PRINT_WIDTH){
-                            printf("%.*s\n", tempP-startP, line+startP);
-                            startP = tempP + 1;
-                        }
-                        printf("%.*s", endP-startP+1, line+startP);
-                    }
-                }
-                getline(&line, &len, quest_file);
-            }
-        }
-    }
-    fclose(quest_file);
-    
-}
-
-setCountdown(char * tag){
+void setCountdown(char * tag){
     char * line = NULL;
     size_t len = 0;
     ssize_t read;
@@ -846,7 +846,7 @@ setCountdown(char * tag){
     
 }
 
-pickRoom(){
+void pickRoom(){
     char * line = NULL;
     size_t len = 0;
     ssize_t read;
@@ -926,7 +926,7 @@ pickRoom(){
 
 }
 
-open_chest(){
+void open_chest(){
     char * line = NULL;
     size_t len = 0;
     ssize_t read;
@@ -972,7 +972,7 @@ open_chest(){
     fclose(quest_file);
 }
 
-findEncounter(char * tag){
+void findEncounter(char * tag){
     char * line = NULL;
     size_t len = 0;
     ssize_t read;
@@ -1015,7 +1015,7 @@ findEncounter(char * tag){
     if(no_encounter) printf("\nNo encounter found in chosen room!!\n");
 }
 
-encounter(){
+void encounter(){
     char * line = NULL;
     size_t len = 0;
     ssize_t read;
