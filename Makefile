@@ -17,6 +17,7 @@ releases:
 	
 clean:
 	rm -rf releases
+	rm -rf import.txt
 	rm -rf save.sav
 	rm -rf descent_ai
 	#this is here because cygwin adds .exe to the linux build
