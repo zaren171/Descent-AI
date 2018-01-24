@@ -1410,7 +1410,6 @@ int main(){
         char quit;
         int card_num;
         
-		//TODO: need an option to lose if the scenario provides a lose function other than conquest tokens
         switch(choice) {
             case(1) :
                 take_overlord_turn();
@@ -1467,22 +1466,36 @@ int main(){
 				keyPause();
                 break;
             case(10) :
-                printf("Did you win the scenario?\n");
+                printf("Did you win!?!\n");
                 printf("(y/n)");
                 scanf("%s%*c", &quit);
                 if(quit == 'y' || quit == 'Y'){
 					printf("\nMISSION POSTSCRIPT\n\n");
 					printSection("#POSTSCRIPT:\n");
 					keyPause();
+					end_game = 0;
 				}
-                printf("Are you sure you want to quit?\n");
-                printf("(y/n)");
-                scanf("%s%*c", &quit);
-                if(quit == 'y' || quit == 'Y') end_game = 0;
-                printf("Do you want to save the current game?\n");
-                printf("(y/n)");
-                scanf("%s%*c", &quit);
-                if(quit == 'y' || quit == 'Y') save_game();
+				else{
+					printf("Did you lose? :(\n");
+					printf("(y/n)");
+					scanf("%s%*c", &quit);
+					if(quit == 'y' || quit == 'Y'){
+						printf("\nMISSION LOST\n\n");
+						printSection("#LOSE:\n");
+						keyPause();
+						end_game = 0;
+					} 
+					else{
+						printf("Are you sure you want to quit?\n");
+						printf("(y/n)");
+						scanf("%s%*c", &quit);
+						if(quit == 'y' || quit == 'Y') end_game = 0;
+						printf("Do you want to save the current game?\n");
+						printf("(y/n)");
+						scanf("%s%*c", &quit);
+						if(quit == 'y' || quit == 'Y') save_game();
+					}
+				}
                 break;
             default:
                 printf("Invalid Choice...");

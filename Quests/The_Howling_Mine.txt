@@ -160,5 +160,6 @@ RN : Red Naga
 RW : Red Wizard
 BRD: Blue Rune Door
 RG : Red Giant
+#LOSE:
 #POSTSCRIPT:
 #ENDFILE:
