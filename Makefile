@@ -24,4 +24,5 @@ clean:
 	rm -rf descent_ai_win.exe
 
 tag: all
+	svn commit . -F import.txt
 	svn cp -F import.txt https://github.com/zaren171/Descent-AI.git/trunk https://github.com/zaren171/Descent-AI.git/tags/V0.1
