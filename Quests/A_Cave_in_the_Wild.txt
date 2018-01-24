@@ -101,4 +101,5 @@ H : Hole
 O : Ogre
 SC: Silver Chest
 HP: Health Potion
+#POSTSCRIPT:
 #ENDFILE:

@@ -24,6 +24,8 @@
 
 FILE * quest_file;
 
+//TODO scanf will cause the program to hang (example, when scanning for a %d, if the user types a letter the program hangs/prints forever.  It is used all throughout the program.  A safer alternative would be better.
+
 typedef struct{
     int players;
     int quest;
@@ -68,6 +70,8 @@ typedef struct{
 monster monsters[60];
 int monsterSize = 0;
 
+//code uses some linux only utilities, needed to be reimplemented.
+//only part of the windows build
 #ifdef WINDOWS
 size_t getline(char **lineptr, size_t *n, FILE *stream) {
     char *bufptr = NULL;
@@ -158,12 +162,14 @@ int scandirWin (char *fullPath, char *folderName, int level, char *fileNames[]){
 }
 #endif
 
+//prints an array of cards
 void printCards(card* ptr, int size){
     int i;
     for(i = 0; i<size; i++) printf("%2d: Cost: %d \tSell: %d \t%s\n", i, ptr[i].play_cost, ptr[i].sell_cost, ptr[i].name);
     printf("\n");
 }
 
+//discards a random card with a cost in the range specified
 void discardCard(int count, int low, int high){
     int temp = rand()%count;
     int i;
@@ -184,6 +190,7 @@ void discardCard(int count, int low, int high){
     }
 }
 
+//draws a card, auto-discards if OL hand size is too large
 void draw_card(){
     //get card
     int cnum = rand()%deckSize;
@@ -199,6 +206,12 @@ void draw_card(){
     deckSize--;
     
     //optional discard
+	/*
+	TODO: This is a reserved space for increasing the intelligence of the AI.
+	The AI could have a function that determines if it is beneficial to
+	discard a card before the hand limit is reached in order to be able
+	to play a different card.
+	*/
     
     //if more than 8 discard for threat
     while(handSize > 8){
@@ -226,12 +239,14 @@ void draw_card(){
     
 }
 
+//pause until user interaction
 void keyPause(){
     printf("\n<><>Press ENTER to Continue<><>");
     getchar();
     printf("\n\n");
 }
 
+//setup the overlord
 void init_ol(){
     overlord.threat = 0;
     //overlord.conquest_tokens = 4; //varies by quest, players can track conquest tokens
@@ -240,9 +255,11 @@ void init_ol(){
     draw_card();
 }
 
+//set up the deck
 void init_deck(){
 
     int i;
+	//creating all the cards
     for(i = 0; i<=2; i++){
         deck[i].play_cost = 2;
         deck[i].sell_cost = 1;
@@ -462,6 +479,7 @@ void init_deck(){
     
     deckSize = 36;
     
+	//creating a deck that has one of each unique card
     fulldeck[fullSize] = deck[0]; fullSize++;
     fulldeck[fullSize] = deck[3]; fullSize++;
     fulldeck[fullSize] = deck[5]; fullSize++;
@@ -488,6 +506,7 @@ void init_deck(){
     fulldeck[fullSize] = deck[35]; fullSize++;
 }
 
+//OL needs to shuffle discard pile to create a new draw deck
 void resuffleDiscard(){
     int i;
     for(i = 0; i<discardSize; i++){
@@ -503,6 +522,7 @@ void collect_threat(int players){
     overlord.threat += players;
 }
 
+//prints the specified section in the quest
 void printSection(char * tag){
     char * line = NULL;
     size_t len = 0;
@@ -512,11 +532,14 @@ void printSection(char * tag){
     while ((read = getline(&line, &len, quest_file)) != -1) {
         if(strcmp(line, tag) == 0){
             getline(&line, &len, quest_file);
+			//all sections start with #, so print lines until you find the next one
             while(line[0] != '#'){
+				//< is a special char, if it is found skip printing that line as well as the next line
                 while(line[0] == '<'){
                     getline(&line, &len, quest_file);
                     getline(&line, &len, quest_file);
                 }
+				//This code automatically breaks the text on word boundaries as close to PRINT_WIDTH as possible
                 int startP = 0;
                 int endP = 0;
                 int tempP = 0;
@@ -555,6 +578,7 @@ void init_game(){
 	char *fileNames[128];
     int j, n;
 	
+	//pull the list of quests. No native windows function, so branching paths here.  Only one is used in each build.
 	#ifdef WINDOWS
 	n = scandirWin("./Quests/", NULL, 0, fileNames);
 	#else
@@ -563,6 +587,7 @@ void init_game(){
     if (n < 0)
         perror("scandir");
     else {
+		//skip first 2 files because they are . and .. on linux
         for (j = 2; j < n; j++) {
 			#ifdef WINDOWS
             printf("%d: %s\n", cnt++, fileNames[j]);
@@ -575,6 +600,7 @@ void init_game(){
         scanf("%d%*c", &game.quest);
         game.quest++;
     
+		//store selected quest so the file can be opened when needed
         for (j = 2; j < n; j++) {
             if(j == game.quest){
                 strcpy(game.questName, "./Quests/");
@@ -593,16 +619,20 @@ void init_game(){
 	#ifdef LINUX
     free(namelist);
 	#endif
-      
+    
+	//countdown timer can be used in scenarios, 0 when no countdown active
     game.countdown = 0;
     
     init_deck();
     init_ol();
     
+	//set the starting room as opened
     game.room[0] = 1;
     int i;
+	//make sure all other rooms are closed
     for(i=1; i<10; i++)
         game.room[i] = 0;
+	//print all starting information for the quest, and first room
     printf("\nSCENARIO BACKGROUND\n\n");
     printSection("#SCENBACK:\n");
     printf("\nMISSION GOAL\n\n");
@@ -611,6 +641,7 @@ void init_game(){
     printSection("#S:\n");
 }
 
+//check if an OL card is in play (cards that stay on table mostly)
 int inplay(char* card_name){
     int i;
     int count = 0;
@@ -622,9 +653,11 @@ int inplay(char* card_name){
     return count;
 }
 
+//This function prints the OL cards in a fashion similar to the actual cards
 void printCard(card c){
     printf(" ______________________________\n");
     printf("/                              \\\n");
+	//centers the name of the card, all card text is centered around 30 char width
     printf("|%*s%*s|\n",15+strlen(c.name)/2,c.name,15-strlen(c.name)/2,"");
     printf("|------------------------------|\n"); //30
     char* type;
@@ -635,11 +668,13 @@ void printCard(card c){
     else if(c.type == 4) type = "Trap (Space)";
     else if(c.type == 5) type = "Trap (Chest)";
     else type = "Trap";
+	//print card type centered
     printf("|%*s%*s|\n",15+strlen(type)/2,type,15-strlen(type)/2,"");
     printf("|                              |\n");
     int startP = 0;
     int endP = 0;
     int tempP = 0;
+	//print card text centered and auto split on word boundaries when needed
     for(endP = 0; endP < strlen(c.text); endP ++){
         if(c.text[endP] == ' '){
             if(endP - startP > 30){
@@ -663,6 +698,7 @@ void printCard(card c){
     printf(" \\__/______________________\\__/\n");
 	printf(" Cost                      Value\n");
     
+	//remind of trapmaster which may be modifying the card
     if(inplay("Trapmaster") > 0){
         if(c.type == trap_door || c.type == trap_space || c.type == trap_chest || c.type == trap){
             printf("Don't forget, %dx Trapmaster cards in play!\n", inplay("Trapmaster"));
@@ -676,17 +712,20 @@ void playCard(int i){
     printf("\n^^The Overlord plays the following card:^^\n");
     printCard(hand[i]);
     
+	//after OL plays a card remind the players if trapmaster is modifying the card
     if(inplay("Trapmaster") > 0){
         if(hand[i].type == trap_door || hand[i].type == trap_space || hand[i].type == trap_chest || hand[i].type == trap){
             overlord.threat += inplay("Trapmaster");
         }
     }
     
+	//powers play to the table
     if(hand[i].type == power){
         table[tableSize] = hand[i];
         overlord.threat -= hand[i].play_cost;
         tableSize++;
     }
+	//otherwise discard the card
     else{
         discard[discardSize] = hand[i];
         overlord.threat -= hand[i].play_cost;
@@ -698,6 +737,7 @@ void playCard(int i){
     handSize--;
 }
 
+//when spawning monsters, check if there are enough open squares for the horde to spawn in
 void spawn_monsters(int open_squares){
     int i;
     for(i = 0; i<handSize; i++){
@@ -723,6 +763,9 @@ void spawn_monsters(int open_squares){
 
 void activate_monsters(){
     //print general AI for all monsters for this turn
+	//this AI isn't necessarily the smartest, but I wanted there to be some
+	//variety between turns.
+	//TODO: This AI could be improved to be smarter, more fun, have more options
     int ai = rand()%100;
     if(ai < 20) printf("Melee: First, monsters adjacent to heroes attack \n"\
                        "adjacent hero, then move as far away from all heroes\n"\
@@ -800,6 +843,9 @@ void take_overlord_turn(){
     //for for loops
     int i;
     
+	//check if there is an active countdown set to expire, if so print the count down text
+	//there can be 1 countdown at a time, and it will get auto started in a room that has it
+	//it will also always trigger the text after the set number of turns currently.
     if(game.countdown == 1){
         int startP = 2;
         int endP = 2;
@@ -845,6 +891,10 @@ void take_overlord_turn(){
         if(hand[i].type == trap && overlord.threat >= hand[i].play_cost){
             int extra_threat = overlord.threat - hand[i].play_cost;
             int temp = rand()%TRAP_CHANCE;
+			//cards are played based on how much threat will be left after the card is play
+			//and a random number.  The more extra threat available, the more likely the card
+			//will be played, and eventually it will be played for sure.  This comment applies 
+			//to many other places in the code.
             if(extra_threat >= temp){
                     printf("\nAttack character with the least health within \n"\
                            "range of the weapon that rolls the most dice!!\n"\
@@ -881,6 +931,7 @@ void take_overlord_turn(){
     if(monster_count) activate_monsters();
 }
 
+//chance to play a door trap when door is opened
 void door_trap(){
     int i;
     for(i = 0; i<handSize; i++){
@@ -896,6 +947,7 @@ void door_trap(){
     }
 }
 
+//chance to play a trap on a chest being opened
 void chest_trap(){
     int i;
     for(i = 0; i<handSize; i++){
@@ -911,6 +963,7 @@ void chest_trap(){
     }
 }
 
+//play a trap when a player moves
 void space_trap(){
     int i;
     for(i = 0; i<handSize; i++){
@@ -926,6 +979,7 @@ void space_trap(){
     }
 }
 
+//print name of all cards, used in a help menu
 void printCardNames(){
     int i;
     for(i = 0; i<fullSize; i++){
@@ -934,6 +988,7 @@ void printCardNames(){
     }
 }
 
+//set's the countdown timer and pulls in the countdown text
 void setCountdown(char * tag){
     char * line = NULL;
     size_t len = 0;
@@ -957,6 +1012,7 @@ void setCountdown(char * tag){
     
 }
 
+//when a door is opened, ask which door is being opened
 void pickRoom(){
     char * line = NULL;
     size_t len = 0;
@@ -1006,6 +1062,7 @@ void pickRoom(){
     }
     fclose(quest_file);
     
+	//print a list of rooms that can be opened from the rooms that have been opened
     if(avail_rooms > 0){
         int validChoice = 0;
         while(!validChoice){
@@ -1037,6 +1094,7 @@ void pickRoom(){
 
 }
 
+//when a chest is opened, print the list of what is in each chest
 void open_chest(){
     char * line = NULL;
     size_t len = 0;
@@ -1083,6 +1141,7 @@ void open_chest(){
     fclose(quest_file);
 }
 
+//print the encounter found in a given room
 void findEncounter(char * tag){
     char * line = NULL;
     size_t len = 0;
@@ -1126,6 +1185,7 @@ void findEncounter(char * tag){
     if(no_encounter) printf("\nNo encounter found in chosen room!!\n");
 }
 
+//when an encounter is found, ask which room
 void encounter(){
     char * line = NULL;
     size_t len = 0;
@@ -1170,6 +1230,8 @@ void encounter(){
     }
 }
 
+//load a saved game
+//TODO: make 10 save/load slots
 void load_game(){
 
     int i;
@@ -1185,6 +1247,7 @@ void load_game(){
     size_t len = 0;
     ssize_t read;
     
+	//read in lines of text and store them into the associated variables
     getline(&line, &len, f);
     sscanf(line, "%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%d|%[^|]|%d|%s", &game.players, &game.quest, &game.room[0],  &game.room[1],  &game.room[2],  &game.room[3], \
                                                                  &game.room[4],  &game.room[5],  &game.room[6],  &game.room[7],  &game.room[8],  &game.room[9], \
@@ -1204,6 +1267,7 @@ void load_game(){
     getline(&line, &len, f);
     sscanf(line, "%d\n", &deckSize);
 
+	//read in all of the decks of cards
     for(i=0; i<60; i++){
         char name[100];
         char text[1000];
@@ -1254,6 +1318,8 @@ void load_game(){
 
 }
 
+//write all variables into a file
+//TODO: multiple save slots (10?), also, maybe be nice to scramble/obfuscate things so the player cant read deck states out of the save file.  Will make saving and loading harder.
 void save_game(){
 
     int i;
@@ -1265,6 +1331,7 @@ void save_game(){
         exit(1);
     }
     
+	//writes all data out in plain text
     fprintf(f, "%d|%d|", game.players, game.quest);
     for(i=0; i<10; i++) fprintf(f, "%d|", game.room[i]);
     fprintf(f, "%s|%d|%s\n", game.questName, game.countdown, game.cdtext);
@@ -1307,6 +1374,7 @@ int main(){
 
     srand(time(NULL));
 
+	//check for an existing save game file
     FILE *f = fopen("save.sav", "r");
     if (f == NULL)
     {
@@ -1342,6 +1410,7 @@ int main(){
         char quit;
         int card_num;
         
+		//TODO: need an option to lose if the scenario provides a lose function other than conquest tokens
         switch(choice) {
             case(1) :
                 take_overlord_turn();
@@ -1398,6 +1467,14 @@ int main(){
 				keyPause();
                 break;
             case(10) :
+                printf("Did you win the scenario?\n");
+                printf("(y/n)");
+                scanf("%s%*c", &quit);
+                if(quit == 'y' || quit == 'Y'){
+					printf("\nMISSION POSTSCRIPT\n\n");
+					printSection("#POSTSCRIPT:\n");
+					keyPause();
+				}
                 printf("Are you sure you want to quit?\n");
                 printf("(y/n)");
                 scanf("%s%*c", &quit);
@@ -1412,9 +1489,6 @@ int main(){
                 break;
         }
         
-        //if(overlord.conquest_tokens <= 0) end_game = 0;
     }
-
-    printf("You have been defeated!! (probably)\n");
     
 }

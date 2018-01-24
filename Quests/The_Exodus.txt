@@ -279,4 +279,5 @@ SC : Silver Chest
 GC : Gold Cheset
 C  : Gold Coins
 G  : Glyph (inactive)
+#POSTSCRIPT:
 #ENDFILE:

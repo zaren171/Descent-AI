@@ -24,5 +24,6 @@ clean:
 	rm -rf descent_ai_win.exe
 
 tag: all
+	#NOTE: import.txt needs to be created, and will be deleted by make clean.  This is a safety to make sure tags are not accidentally created.
 	svn commit . -F import.txt
 	svn cp -F import.txt https://github.com/zaren171/Descent-AI.git/trunk https://github.com/zaren171/Descent-AI.git/tags/V0.1

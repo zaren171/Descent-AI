@@ -5,14 +5,15 @@ The base of this work was performed, for the most part, in Cygwin.  Cygwin does 
 
 **Required Tools**
 
-This build flow requires GCC.  Also, to package deliverables zip will need to be available from the command line.
+This build flow requires GCC.  Also, to package deliverables zip will need to be available from the command line.  The makefile also uses SVN to create tags/releases.
 
 **File and Folder Descriptions**
 
 /Quests = a folder that contains all of the quest files
+/releases = a folder that contains the build releases
 descent_ai.c = c code for the ai
 Makefile = Makefile used for building the ai
-README.md = this file
+README = this file
 
 **Building the AI**
 
@@ -21,6 +22,6 @@ There are separate build flows depending on the operating system you are using. 
 "make linux" = Run Linux build flow, executable called descent_ai (if built in cygwin .exe will be added)
 "make cygwin" = Same as Linux, but executable is called descent_ai_cyg.exe
 "make windows" = Run Windows build flow, executable called descent_ai_win.exe
-"make release" = Makes releases folder, bundles each executable with quests folder in a .zip archive
+"make release" = Bundles each executable with quests folder in a .zip archive
 "make clean" = remove unnecessary files
 
