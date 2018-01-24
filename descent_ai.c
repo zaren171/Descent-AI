@@ -4,6 +4,10 @@
 #include <string.h>
 #include <dirent.h>
 
+#ifdef WINDOWS
+#include <windows.h>
+#endif
+
 #define MAX_CARD_COST 25
 #define PRINT_WIDTH 80
 
@@ -63,6 +67,96 @@ typedef struct{
 } monster;
 monster monsters[60];
 int monsterSize = 0;
+
+#ifdef WINDOWS
+size_t getline(char **lineptr, size_t *n, FILE *stream) {
+    char *bufptr = NULL;
+    char *p = bufptr;
+    size_t size;
+    int c;
+
+    if (lineptr == NULL) {
+        return -1;
+    }
+    if (stream == NULL) {
+        return -1;
+    }
+    if (n == NULL) {
+        return -1;
+    }
+    bufptr = *lineptr;
+    size = *n;
+
+    c = fgetc(stream);
+    if (c == EOF) {
+        return -1;
+    }
+    if (bufptr == NULL) {
+        bufptr = malloc(128);
+        if (bufptr == NULL) {
+            return -1;
+        }
+        size = 128;
+    }
+    p = bufptr;
+    while(c != EOF) {
+        if ((p - bufptr) > (size - 1)) {
+            size = size + 128;
+            bufptr = realloc(bufptr, size);
+            if (bufptr == NULL) {
+                return -1;
+            }
+        }
+        *p++ = c;
+        if (c == '\n') {
+            break;
+        }
+        c = fgetc(stream);
+    }
+
+    *p++ = '\0';
+    *lineptr = bufptr;
+    *n = size;
+
+    return p - bufptr - 1;
+}
+
+int scandirWin (char *fullPath, char *folderName, int level, char *fileNames[]){
+	
+    char findpath[_MAX_PATH], temppath[_MAX_PATH];
+    HANDLE fh;
+    WIN32_FIND_DATA wfd;
+    int i;
+	
+	char *holder;
+	int fileNum = 2;
+
+    strcpy (findpath, fullPath);
+    if (folderName)
+    {
+            strcat (findpath, "\\");
+            strcat (findpath, folderName);
+    }
+    strcat (findpath, "\\*.*");
+
+    fh = FindFirstFile (findpath, &wfd);
+    if (fh != INVALID_HANDLE_VALUE)
+    {
+            do
+            {
+                    if (!(wfd.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY))
+                    {
+							holder = malloc(128);
+							strcpy(holder, wfd.cFileName);
+							fileNames[fileNum] = holder;
+							fileNum++;
+                    }
+            } while (FindNextFile (fh, &wfd));
+            FindClose (fh);
+    }
+	return fileNum;
+}
+#endif
 
 void printCards(card* ptr, int size){
     int i;
@@ -458,14 +552,23 @@ void init_game(){
     
     int cnt = 1;
     struct dirent **namelist;
+	char *fileNames[128];
     int j, n;
-
+	
+	#ifdef WINDOWS
+	n = scandirWin("./Quests/", NULL, 0, fileNames);
+	#else
     n = scandir("./Quests/", &namelist, 0, alphasort);
+	#endif
     if (n < 0)
         perror("scandir");
     else {
         for (j = 2; j < n; j++) {
+			#ifdef WINDOWS
+            printf("%d: %s\n", cnt++, fileNames[j]);
+			#else
             printf("%d: %s\n", cnt++, namelist[j]->d_name);
+			#endif
         }
     
         printf("Selection: ");
@@ -475,13 +578,21 @@ void init_game(){
         for (j = 2; j < n; j++) {
             if(j == game.quest){
                 strcpy(game.questName, "./Quests/");
+				#ifdef WINDOWS
+                strcat(game.questName, fileNames[j]);
+				#else
                 strcat(game.questName, (namelist[j]->d_name));
+				#endif
                 printf("%s", game.questName);
             }
+			#ifdef LINUX
             free(namelist[j]);
+			#endif
         }
     }
+	#ifdef LINUX
     free(namelist);
+	#endif
       
     game.countdown = 0;
     
@@ -1223,7 +1334,8 @@ int main(){
         printf("6: OL Discard Pile\n");
         printf("7: OL Stats\n");
         printf("8: Card Info\n");
-        printf("9: End Game\n");
+        printf("9: Save Game\n");
+        printf("10: End Game\n");
         printf("Selection: ");
         scanf("%d%*c", &choice);
         printf("\n");
@@ -1281,6 +1393,11 @@ int main(){
                 printCard(fulldeck[card_num]);
                 break;
             case(9) :
+				save_game();
+				printf("Game Saved!");
+				keyPause();
+                break;
+            case(10) :
                 printf("Are you sure you want to quit?\n");
                 printf("(y/n)");
                 scanf("%s%*c", &quit);
