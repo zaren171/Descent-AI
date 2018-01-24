@@ -25,6 +25,3 @@ clean:
 
 tag: all
 	svn cp -F import.txt https://github.com/zaren171/Descent-AI.git/trunk https://github.com/zaren171/Descent-AI.git/tags/V0.1
-	svn import -F import.txt releases/Descent_AI_Cyg.zip https://github.com/zaren171/Descent-AI.git/tags/V0.1/releases/Descent_AI_Cyg.zip
-	svn import -F import.txt releases/Descent_AI_Win.zip https://github.com/zaren171/Descent-AI.git/tags/V0.1/releases/Descent_AI_Win.zip
-	svn import -F import.txt releases/Descent_AI_Lin.zip https://github.com/zaren171/Descent-AI.git/tags/V0.1/releases/Descent_AI_Lin.zip
