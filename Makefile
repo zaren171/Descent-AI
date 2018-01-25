@@ -1,4 +1,4 @@
-all: linux cygwin windows release
+all: linux cygwin windows
 
 linux:
 	gcc descent_ai.c -o descent_ai -D LINUX
