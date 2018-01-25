@@ -102,5 +102,7 @@ O : Ogre
 SC: Silver Chest
 HP: Health Potion
 #LOSE:
+(No additional text)
 #POSTSCRIPT:
+(No additional text)
 #ENDFILE:

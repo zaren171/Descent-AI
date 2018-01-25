@@ -233,9 +233,10 @@ HH : Hell Hound
 RW : Razor Wing
 RBM: Red Beast Man
 #6:
-As you enter this room  you hear the noises and the screams louder now and you think you have found the reason the monsters are running from the cave... a dragon has taken up residence and seems to be cleaning out his new lair! He is locked in a fight with a Naga and doesn't seem to notice your enterance.
+As you enter this room  you hear the noises and the screams louder now and you think you have found the reason the monsters are running from the cave... a dragon has taken up residence and seems to be cleaning out his new lair! He is locked in a fight with a Naga and doesn't seem to notice your entrance.
 
-Note: On second turn in after party enters the room the naga is killed by the dragon and he now turns his attention on them.
+<Countdown:
+2 The naga is killed by the dragon, and he now turns his attention on you!
 
 Map:
         +---+---+           +---+---+
@@ -280,5 +281,7 @@ GC : Gold Cheset
 C  : Gold Coins
 G  : Glyph (inactive)
 #LOSE:
+(No additional text)
 #POSTSCRIPT:
+(No additional text)
 #ENDFILE:

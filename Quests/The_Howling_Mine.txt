@@ -161,5 +161,7 @@ RW : Red Wizard
 BRD: Blue Rune Door
 RG : Red Giant
 #LOSE:
+You see the Machine picks up speed and goes down the road, creaking and stomping. It is too fast for you now. As it disappears behind the trees, you feel an enormous amount of guilt. Whatever will happen of Forge, you are in part responsible for it.
 #POSTSCRIPT:
+The very moment the last threat is eliminated, all remaining creatures within the Howling Mine flee to the exit. You can hear them run for their life. Then total silence surrounds you. You can be proud of what you have achieved as hundreds of lives were saved, thanks to your bravery. You wipe the sweat from your forehead and with a smile on your face, you head back to the daylight.
 #ENDFILE:
