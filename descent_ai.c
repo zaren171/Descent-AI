@@ -1231,7 +1231,6 @@ void encounter(){
 }
 
 //load a saved game
-//TODO: make 10 save/load slots
 void load_game(){
 
     int i;
@@ -1319,7 +1318,6 @@ void load_game(){
 }
 
 //write all variables into a file
-//TODO: multiple save slots (10?), also, maybe be nice to scramble/obfuscate things so the player cant read deck states out of the save file.  Will make saving and loading harder.
 void save_game(){
 
     int i;
