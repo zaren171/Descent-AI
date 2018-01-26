@@ -571,6 +571,7 @@ void init_game(){
 
     printf("Number of players: ");
     scanf("%d%*c", &game.players);
+	//TODO: there is potential for hundreds of quests, making listing them all a bad idea.  Maybe only list quests that are designed for the specified number of players?  Some sort of sorting/subfolders could be a good idea in the future
     printf("Which Quest will you play?\n");
     
     int cnt = 1;
